@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кирилл — помощь с банком для ИП в Беларуси</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --emerald: #0a3d35;
+    --emerald-mid: #0f5444;
+    --emerald-light: #1a7a60;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --cream: #f5f0e8;
+    --cream-dark: #ede6d6;
+    --text-dark: #1a1a1a;
+    --text-muted: #6b6b6b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--emerald);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(26,122,96,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 40px;
+    font-weight: 400;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 8vw, 80px);
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.05;
+    max-width: 700px;
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(245,240,232,0.65);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 50px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--gold);
+    color: var(--emerald);
+    text-decoration: none;
+    padding: 16px 32px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-cta:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .hero-cta svg { width: 18px; height: 18px; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.2s forwards;
+  }
+
+  .hero-scroll span {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.35);
+    writing-mode: vertical-rl;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* INTRO SECTION */
+  .intro {
+    padding: 100px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .intro-label {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--emerald-light);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .intro h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    color: var(--emerald);
+  }
+
+  .intro p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .intro-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .stat-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px;
+    background: white;
+    border-left: 3px solid var(--gold);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--emerald);
+    line-height: 1;
+    min-width: 80px;
+  }
+
+  .stat-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding-top: 6px;
+  }
+
+  .stat-text strong {
+    display: block;
+    font-size: 15px;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  /* COMPARISON TABLE */
+  .comparison {
+    background: var(--emerald);
+    padding: 100px 40px;
+  }
+
+  .comparison-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-header .label {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .section-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    color: var(--cream);
+    font-weight: 600;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    padding: 20px 24px;
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: rgba(245,240,232,0.5);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+
+  thead th.bank-col {
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid rgba(245,240,232,0.06);
+    transition: background 0.2s;
+  }
+
+  tbody tr:hover { background: rgba(245,240,232,0.03); }
+
+  tbody td {
+    padding: 20px 24px;
+    font-size: 14px;
+    color: rgba(245,240,232,0.75);
+    vertical-align: middle;
+  }
+
+  tbody td:first-child {
+    color: rgba(245,240,232,0.45);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 2px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .badge-green { background: rgba(26,122,96,0.3); color: #5ecba1; }
+  .badge-yellow { background: rgba(201,168,76,0.2); color: var(--gold-light); }
+  .badge-red { background: rgba(180,60,60,0.2); color: #e08080; }
+
+  .table-note {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(245,240,232,0.3);
+    margin-top: 24px;
+    letter-spacing: 0.3px;
+  }
+
+  /* SERVICES */
+  .services {
+    padding: 100px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+    background: var(--cream-dark);
+  }
+
+  .service-card {
+    background: white;
+    padding: 40px 32px;
+    position: relative;
+  }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--cream-dark);
+    line-height: 1;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .service-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--emerald);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .service-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .service-line {
+    width: 32px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  /* WHO */
+  .who {
+    background: var(--cream-dark);
+    padding: 100px 40px;
+  }
+
+  .who-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .who-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .who-card {
+    background: white;
+    padding: 32px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .who-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--emerald);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 20px;
+  }
+
+  .who-card h4 {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--emerald);
+    margin-bottom: 8px;
+  }
+
+  .who-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--emerald);
+    padding: 120px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    color: var(--cream);
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .cta-section p {
+    font-size: 16px;
+    color: rgba(245,240,232,0.55);
+    margin-bottom: 48px;
+    font-weight: 300;
+    position: relative;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--emerald);
+    text-decoration: none;
+    padding: 18px 40px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    border: 1px solid rgba(245,240,232,0.25);
+    color: rgba(245,240,232,0.7);
+    text-decoration: none;
+    padding: 18px 40px;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(245,240,232,0.5);
+    color: var(--cream);
+  }
+
+  /* FOOTER */
+  footer {
+    background: #050f0d;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .footer-legal {
+    font-size: 11px;
+    color: rgba(245,240,232,0.25);
+    text-align: right;
+    line-height: 1.6;
+    max-width: 400px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .hero { padding: 80px 24px 60px; }
+    .intro { grid-template-columns: 1fr; gap: 48px; padding: 60px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .who-grid { grid-template-columns: 1fr; }
+    .comparison { padding: 60px 24px; }
+    .services { padding: 60px 24px; }
+    .cta-section { padding: 80px 24px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-legal { text-align: center; }
+    .hero-scroll { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Банковские продукты для бизнеса · Беларусь 2026</div>
+  <h1>Открой счёт<br>и не <em>переплати</em></h1>
+  <p class="hero-sub">Помогаю ИП и малому бизнесу выбрать банк, подключить эквайринг и не потерять деньги на комиссиях. Бесплатная консультация под вашу ситуацию.</p>
+  <a href="https://t.me/EverestHelper" class="hero-cta" target="_blank">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.54 14.4l-2.95-.924c-.64-.204-.654-.64.136-.954l11.526-4.445c.534-.194 1.002.13.31.171z"/></svg>
+    Написать в Telegram
+  </a>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="reveal">
+    <div class="intro-label">Почему ко мне обращаются</div>
+    <h2>Не один банк,<br>а правильный банк<br>для вас</h2>
+    <p>Я работаю сразу с несколькими банками — БНБ, Приорбанком и БелВЭБ. Моя задача не продать конкретный продукт, а подобрать тот который выгоднее именно при вашем обороте и виде деятельности.</p>
+    <p>Консультация бесплатна. Вы ничего не теряете — просто получаете ответ на вопрос который гуглили.</p>
+  </div>
+  <div class="intro-stats reveal">
+    <div class="stat-item">
+      <span class="stat-num">0</span>
+      <div class="stat-text">
+        <strong>Рублей за консультацию</strong>
+        Разбираю вашу ситуацию и говорю что делать — без скрытых платежей
+      </div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">3</span>
+      <div class="stat-text">
+        <strong>Банка в одном месте</strong>
+        БНБ, Приорбанк, БелВЭБ — сравниваю и выбираю лучшее для вас
+      </div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">1–3</span>
+      <div class="stat-text">
+        <strong>Дня до открытия счёта</strong>
+        Большинство банков открывают онлайн за 15–30 минут
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="comparison">
+  <div class="comparison-inner">
+    <div class="section-header reveal">
+      <span class="label">Сравнение банков</span>
+      <h2>БНБ, Приорбанк<br>или БелВЭБ?</h2>
+    </div>
+    <div class="table-wrap reveal">
+      <table>
+        <thead>
+          <tr>
+            <th>Критерий</th>
+            <th class="bank-col">БНБ</th>
+            <th class="bank-col">Приорбанк</th>
+            <th class="bank-col">БелВЭБ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Скорость открытия РКО</td>
+            <td><span class="badge badge-green">15–30 мин</span></td>
+            <td><span class="badge badge-green">15–20 мин</span></td>
+            <td><span class="badge badge-yellow">30+ мин</span></td>
+          </tr>
+          <tr>
+            <td>Классический эквайринг</td>
+            <td><span class="badge badge-red">Отсутствует</span></td>
+            <td><span class="badge badge-yellow">от 1,5%</span></td>
+            <td><span class="badge badge-green">от 0,8%</span></td>
+          </tr>
+          <tr>
+            <td>EPOS / QR-оплата</td>
+            <td><span class="badge badge-green">1,2%</span></td>
+            <td><span class="badge badge-red">Отсутствует</span></td>
+            <td><span class="badge badge-yellow">TurboPOS</span></td>
+          </tr>
+          <tr>
+            <td>Приём карт россиян (Мир)</td>
+            <td><span class="badge badge-red">Не работает</span></td>
+            <td><span class="badge badge-green">Работает</span></td>
+            <td><span class="badge badge-green">Работает</span></td>
+          </tr>
+          <tr>
+            <td>Онлайн-открытие</td>
+            <td><span class="badge badge-green">Да</span></td>
+            <td><span class="badge badge-green">Да</span></td>
+            <td><span class="badge badge-yellow">Частично</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="table-note">Данные актуальны на апрель 2026 · Партнёр БНБ, Приорбанка и БелВЭБ · Реестр МАРТ · Уточняйте условия на официальных сайтах банков</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="section-header reveal">
+    <div class="intro-label">Что я делаю</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,48px);color:var(--emerald);font-weight:600;">Полный цикл запуска<br>банковской части бизнеса</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-num">01</span>
+      <div class="service-line"></div>
+      <h3>Выбор банка</h3>
+      <p>Анализирую ваш вид деятельности, оборот и потребности. Подбираю банк где вы реально будете платить меньше.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">02</span>
+      <div class="service-line"></div>
+      <h3>Открытие счёта</h3>
+      <p>Помогаю пройти все шаги — от заявки до получения реквизитов. Большинство банков открывают онлайн.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">03</span>
+      <div class="service-line"></div>
+      <h3>Эквайринг и EPOS</h3>
+      <p>Подбираю способ приёма карточных платежей. QR-код без терминала или классический терминал — зависит от ситуации.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section class="who">
+  <div class="who-inner">
+    <div class="section-header reveal">
+      <div class="intro-label" style="color:var(--emerald-light);">Кому подходит</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,48px);color:var(--emerald);font-weight:600;">Помогаю тем кто<br>только начинает или уже работает</h2>
+    </div>
+    <div class="who-grid">
+      <div class="who-card reveal">
+        <div class="who-icon">💅</div>
+        <div>
+          <h4>Мастера бьюти-сферы</h4>
+          <p>Маникюр, брови, ресницы, парикмахеры. Хотите принимать карты без дорогого терминала.</p>
+        </div>
+      </div>
+      <div class="who-card reveal">
+        <div class="who-icon">📦</div>
+        <div>
+          <h4>Продавцы на маркетплейсах</h4>
+          <p>Wildberries, Ozon. Нужен счёт для стабильного вывода выплат без блокировок.</p>
+        </div>
+      </div>
+      <div class="who-card reveal">
+        <div class="who-icon">💻</div>
+        <div>
+          <h4>Фрилансеры и IT</h4>
+          <p>SMM, дизайнеры, разработчики. Работаете с клиентами из РФ или за рубежом — нужен удобный валютный счёт.</p>
+        </div>
+      </div>
+      <div class="who-card reveal">
+        <div class="who-icon">🏪</div>
+        <div>
+          <h4>Торговые точки</h4>
+          <p>Рынки, небольшие магазины. Клиенты платят картой — нужен терминал с низкой комиссией.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Не знаете какой<br>банк выбрать?</h2>
+  <p>Напишите мне — разберём вашу ситуацию за 10 минут. Без обязательств.</p>
+  <div class="cta-buttons">
+    <a href="https://t.me/EverestHelper" class="btn-primary" target="_blank">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.54 14.4l-2.95-.924c-.64-.204-.654-.64.136-.954l11.526-4.445c.534-.194 1.002.13.31.171z"/></svg>
+      Написать в Telegram
+    </a>
+    <a href="https://t.me/EverestBYN" class="btn-secondary" target="_blank">Мой канал @EverestBYN</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Everest · BY</div>
+  <div class="footer-legal">
+    Являюсь партнёром БНБ, Приорбанка и БелВЭБ.<br>
+    Зарегистрирован в Реестре рекламораспространителей МАРТ.<br>
+    Информация актуальна на апрель 2026. Уточняйте условия на официальных сайтах банков.
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
