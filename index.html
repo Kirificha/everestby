@@ -238,7 +238,7 @@
 
   .stat-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 20px;
     padding: 24px;
     background: white;
@@ -252,7 +252,9 @@
     font-weight: 700;
     color: var(--emerald);
     line-height: 1;
-    min-width: 80px;
+    min-width: 72px;
+    text-align: center;
+    flex-shrink: 0;
   }
 
   .stat-text {
@@ -473,7 +475,8 @@
     justify-content: center;
     flex-shrink: 0;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
+    font-size: 14px;
+    letter-spacing: 1px;
     color: var(--gold);
     font-weight: 600;
     position: relative;
@@ -889,7 +892,9 @@
   </div>
   <div class="intro-stats reveal">
     <div class="stat-item">
-      <span class="stat-num">Бесп.</span>
+      <span class="stat-num">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:34px;height:34px;color:var(--emerald);display:block;margin:auto"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
       <div class="stat-text">
         <strong>Консультация бесплатна</strong>
         Разбираю вашу ситуацию и говорю что делать — без скрытых платежей
@@ -1010,28 +1015,28 @@
     </div>
     <div class="how-steps">
       <div class="how-step reveal">
-        <div class="step-dot">1</div>
+        <div class="step-dot">I</div>
         <div class="step-content">
           <h4>Вы пишете в Telegram</h4>
           <p>Коротко описываете ситуацию: вид деятельности, нужен ли эквайринг, есть ли клиенты из России. Это занимает 2 минуты.</p>
         </div>
       </div>
       <div class="how-step reveal">
-        <div class="step-dot">2</div>
+        <div class="step-dot">II</div>
         <div class="step-content">
           <h4>Я подбираю оптимальный вариант</h4>
           <p>Сравниваю подходящие банки под вашу ситуацию и объясняю разницу. Никаких презентаций — только конкретный ответ.</p>
         </div>
       </div>
       <div class="how-step reveal">
-        <div class="step-dot">3</div>
+        <div class="step-dot">III</div>
         <div class="step-content">
           <h4>Вы открываете счёт, я сопровождаю</h4>
           <p>Помогаю с заявкой, отвечаю на вопросы по ходу. Менеджер банка сам свяжется с вами для оформления.</p>
         </div>
       </div>
       <div class="how-step reveal">
-        <div class="step-dot">4</div>
+        <div class="step-dot">IV</div>
         <div class="step-content">
           <h4>Счёт открыт — подключаем эквайринг</h4>
           <p>Если нужно принимать карты — подбираем терминал или QR-решение. Вы начинаете работать без лишних трат.</p>
