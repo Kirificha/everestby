@@ -35,9 +35,23 @@
     padding: 100px 40px 90px;
     position: relative;
     overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 60px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
-  .hero::before {
+  .hero-content { position: relative; z-index: 1; }
+
+  section.hero-wrap {
+    background: var(--emerald);
+    position: relative;
+    overflow: hidden;
+  }
+
+  section.hero-wrap::before {
     content: '';
     position: absolute;
     top: -200px; right: -200px;
@@ -46,13 +60,61 @@
     pointer-events: none;
   }
 
-  .hero::after {
+  section.hero-wrap::after {
     content: '';
     position: absolute;
     bottom: -100px; left: -100px;
     width: 400px; height: 400px;
     background: radial-gradient(circle, rgba(26,122,96,0.15) 0%, transparent 70%);
     pointer-events: none;
+  }
+
+  .hero-visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hero-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 20px 24px;
+    border-radius: 2px;
+    opacity: 0;
+    animation: fadeUp 0.8s forwards;
+  }
+
+  .hero-card:nth-child(1) { animation-delay: 0.9s; }
+  .hero-card:nth-child(2) { animation-delay: 1.1s; }
+  .hero-card:nth-child(3) { animation-delay: 1.3s; }
+
+  .hero-card-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .hero-card-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    color: var(--cream);
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .hero-card-sub {
+    font-size: 12px;
+    color: rgba(245,240,232,0.4);
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; max-width: 100%; }
+    .hero-visual { display: none; }
   }
 
   .hero-tag {
@@ -306,6 +368,22 @@
 
   .table-wrap {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-scroll-hint {
+    display: none;
+    text-align: center;
+    font-size: 12px;
+    color: var(--gold);
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .table-scroll-hint { display: block; }
+    table { min-width: 560px; }
   }
 
   table {
@@ -814,7 +892,7 @@
 
   /* MOBILE */
   @media (max-width: 768px) {
-    .hero { padding: 80px 24px 60px; }
+    .hero { padding: 80px 24px 60px; grid-template-columns: 1fr; }
     .trust-bar { gap: 20px; padding: 16px 24px; }
     .intro { grid-template-columns: 1fr; gap: 48px; padding: 60px 24px; }
     .services-grid { grid-template-columns: 1fr; }
@@ -835,7 +913,9 @@
 <body>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero-wrap">
+<div class="hero">
+  <div class="hero-content">
   <div class="hero-tag">Банковские продукты для бизнеса · Беларусь 2026</div>
   <h1>Открой счёт<br>и не <em>переплати</em></h1>
   <p class="hero-sub">Помогаю ИП и малому бизнесу выбрать банк, подключить эквайринг и не потерять деньги на комиссиях.</p>
@@ -860,6 +940,26 @@
     </a>
     <span class="hero-trust">Консультация <strong>бесплатна</strong> · Без обязательств</span>
   </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-card-label">Скорость открытия</div>
+      <div class="hero-card-value">15–30</div>
+      <div class="hero-card-sub">минут — онлайн, без визита в банк</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-label">Стоимость консультации</div>
+      <div class="hero-card-value">Бесплатно</div>
+      <div class="hero-card-sub">без скрытых платежей и обязательств</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-label">Банков в сравнении</div>
+      <div class="hero-card-value">3 банка</div>
+      <div class="hero-card-sub">БНБ, Приорбанк, БелВЭБ — выберем лучший</div>
+    </div>
+  </div>
+</div>
 </section>
 
 <!-- TRUST BAR -->
@@ -925,6 +1025,7 @@
       <h2>БНБ, Приорбанк<br>или БелВЭБ?</h2>
     </div>
     <div class="table-wrap reveal">
+      <div class="table-scroll-hint">← листайте таблицу →</div>
       <table>
         <thead>
           <tr>
@@ -943,7 +1044,7 @@
           </tr>
           <tr>
             <td>Классический эквайринг (терминал)</td>
-            <td><span class="badge badge-red">Отсутствует</span></td>
+            <td><span class="badge badge-yellow">QR-решение</span><br><span style="font-size:11px;color:rgba(245,240,232,0.35);display:block;margin-top:4px;">терминал не нужен</span></td>
             <td><span class="badge badge-yellow">от 1,5%</span></td>
             <td><span class="badge badge-green">от 0,8%</span></td>
           </tr>
@@ -1031,8 +1132,8 @@
       <div class="how-step reveal">
         <div class="step-dot">III</div>
         <div class="step-content">
-          <h4>Вы открываете счёт, я сопровождаю</h4>
-          <p>Помогаю с заявкой, отвечаю на вопросы по ходу. Менеджер банка сам свяжется с вами для оформления.</p>
+          <h4>Вы открываете счёт, я рядом</h4>
+          <p>Помогаю с заявкой, отвечаю на вопросы по ходу. Если возникнут вопросы при заполнении — я в чате. Менеджер банка свяжется с вами сам.</p>
         </div>
       </div>
       <div class="how-step reveal">
@@ -1157,7 +1258,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-left">
-    <div class="footer-logo">Everest · BY</div>
+    <div class="footer-logo">Кирилл · BY</div>
     <div class="footer-privacy">
       Передавая данные через сайт, вы соглашаетесь на их обработку.<br>
       <a onclick="document.getElementById('privacyModal').classList.add('open')">Политика конфиденциальности</a>
